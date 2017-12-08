@@ -38,12 +38,12 @@ public class JDBCExam {
 			System.out.println("[닫기 오류]\n" + e.getStackTrace());
 		}
 	}
-	
-	
-	public void productInsert(String p_date, int p_price, int p_in_out, int p_card) {//추가
+
+	public void productInsert(Data data) {// 추가
 		try {
-			String queryString = "INSERT INTO " + tableName + " (`data`, `price`, `in_out`, `card`) VALUES" + " ('"
-					+ p_date + "', " + p_price + "', '" + p_in_out + "', '" + p_card + "')";
+			String queryString = "INSERT INTO budget (`date`, `price`, `in_out`, `card`,`kinds`,`name`) VALUES" + " ('"
+					+ data.get_date() + "', '" + data.get_price() + "', '" + data.get_in_out() + "', '"
+					+ data.get_card() + "', '" + data.get_kinds() + "', '" + data.get_name() + "');";
 
 			connection = DriverManager.getConnection(url, user, password);
 
@@ -61,10 +61,11 @@ public class JDBCExam {
 		}
 	}
 
-	public void productDelete(String p_date, int p_price, int p_in_out, int p_card) {//삭제
+	public void productDelete(Data data) {// 삭제
 		try {
-			String queryString = "DELETE FROM " + tableName + " (`data`, `price`, `in_out`, `card`) VALUES" + " ('"
-					+ p_date + "', " + p_price + "', '" + p_in_out + "', '" + p_card + "')";
+			String queryString = "DELETE FROM budget where date = '" + data.get_date() + "' and price = '" + data.get_price()
+					+ "' and in_out =  '" + data.get_in_out() + "' and card =  '" + data.get_card() + "' and kinds =  '"
+					+ data.get_kinds() + "' and name = '" + data.get_name() + "';";
 
 			connection = DriverManager.getConnection(url, user, password);
 
@@ -82,7 +83,5 @@ public class JDBCExam {
 		}
 
 	}
-	
-	
-}
 
+}
