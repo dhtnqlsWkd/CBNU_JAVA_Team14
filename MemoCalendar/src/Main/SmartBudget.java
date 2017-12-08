@@ -73,21 +73,20 @@ public class SmartBudget extends CalendarDataManager{ // CalendarDataManager의 G
 	// 창 구성요소와 배치도
 	JFrame mainFrame;
 		//ImageIcon icon = new ImageIcon ( Toolkit.getDefaultToolkit().getImage(getClass().getResource("icon.png")));
-	
-	JPanel calOpPanel;
-		JButton lYearBut;
-		JButton lMonBut;
-		JLabel curMMYYYYLab;
-		JButton nMonBut;
-		JButton nYearBut;
-		ListenForCalOpButtons lForCalOpButtons = new ListenForCalOpButtons();
 		
-		JPanel todayPanel;
+	JPanel budgetPanel;
+		JPanel calOpPanel;
+			JButton lYearBut;
+			JButton lMonBut;
+			JLabel curMMYYYYLab;
+			JButton nMonBut;
+			JButton nYearBut;
+			ListenForCalOpButtons lForCalOpButtons = new ListenForCalOpButtons();
+			
 			JButton todayBut;
 			JLabel todayLab;
 		
-		JPanel budgetPanel;
-			
+		JPanel budgetOpPanel;
 	
 	JPanel calPanel;
 		JButton weekDaysName[];
@@ -203,20 +202,20 @@ public class SmartBudget extends CalendarDataManager{ // CalendarDataManager의 G
 			
 			calOpPanel.setLayout(new GridBagLayout());
 			GridBagConstraints calOpGC = new GridBagConstraints();
-//			calOpGC.gridx = 1;
-//			calOpGC.gridy = 2;
-//			calOpGC.gridwidth = 2;
-//			calOpGC.gridheight = 1;
-//			calOpGC.weightx = 1;
-//			calOpGC.weighty = 1;
-//			calOpGC.insets = new Insets(0,5,50,0);
-//			calOpGC.anchor = GridBagConstraints.WEST;
-//			calOpGC.fill = GridBagConstraints.NONE;
-//			calOpPanel.add(todayBut,calOpGC);
-//			calOpGC.gridwidth = 3;
-//			calOpGC.gridx = 2;
-//			calOpGC.gridy = 2;
-//			calOpPanel.add(todayLab,calOpGC);
+			calOpGC.gridx = 1;
+			calOpGC.gridy = 2;
+			calOpGC.gridwidth = 2;
+			calOpGC.gridheight = 1;
+			calOpGC.weightx = 1;
+			calOpGC.weighty = 0;
+			calOpGC.insets = new Insets(0,5,0,0);
+			calOpGC.anchor = GridBagConstraints.WEST;
+			calOpGC.fill = GridBagConstraints.NONE;
+			calOpPanel.add(todayBut,calOpGC);
+			calOpGC.gridwidth = 3;
+			calOpGC.gridx = 2;
+			calOpGC.gridy = 2;
+			calOpPanel.add(todayLab,calOpGC);
 			calOpGC.anchor = GridBagConstraints.CENTER;
 			calOpGC.gridwidth = 1;
 			calOpGC.gridx = 1;
@@ -239,10 +238,33 @@ public class SmartBudget extends CalendarDataManager{ // CalendarDataManager의 G
 			calOpGC.gridy = 1;
 			calOpPanel.add(nYearBut,calOpGC);
 			
-		todayPanel = new JPanel();
-			todayPanel.setLayout(new GridBagLayout());
-			GridBagConstraints todayGC = new GridBagConstraints();
+		budgetOpPanel = new JPanel();
+		Dimension budgetOpPanelSize = budgetOpPanel.getPreferredSize();
+		budgetOpPanelSize.height = 100;
+		budgetOpPanel.setPreferredSize(budgetOpPanelSize);
+		
+		budgetPanel = new JPanel();
+		budgetPanel.setLayout(new BorderLayout());
+		budgetPanel.add(calOpPanel, BorderLayout.NORTH);
+		budgetPanel.add(budgetOpPanel, BorderLayout.CENTER);
 			
+//		todayPanel = new JPanel();
+//			todayPanel.setLayout(new GridBagLayout());
+//			GridBagConstraints todayGC = new GridBagConstraints();
+//			todayGC.gridx = 1;
+//			todayGC.gridy = 2;
+//			todayGC.gridwidth = 2;
+//			todayGC.gridheight = 1;
+//			todayGC.weightx = 1;
+//			todayGC.weighty = 1;
+//			todayGC.insets = new Insets(0,5,50,0);
+//			todayGC.anchor = GridBagConstraints.WEST;
+//			todayGC.fill = GridBagConstraints.NONE;
+//			todayPanel.add(todayBut,todayGC);
+//			todayGC.gridwidth = 3;
+//			todayGC.gridx = 2;
+//			todayGC.gridy = 2;
+//			todayPanel.add(todayLab,calOpGC);
 		
 		calPanel=new JPanel();
 			weekDaysName = new JButton[7];
@@ -277,7 +299,7 @@ public class SmartBudget extends CalendarDataManager{ // CalendarDataManager의 G
 			infoPanel.setLayout(new BorderLayout());
 			infoClock = new JLabel("", SwingConstants.RIGHT);
 			infoClock.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-			infoPanel.add(infoClock, BorderLayout.NORTH);
+			//infoPanel.add(infoClock, BorderLayout.NORTH);
 			selectedDate = new JLabel("<Html><font size=3>"+(today.get(Calendar.MONTH)+1)+"/"+today.get(Calendar.DAY_OF_MONTH)+"/"+today.get(Calendar.YEAR)+"&nbsp;(Today)</html>", SwingConstants.LEFT);
 			selectedDate.setBorder(BorderFactory.createEmptyBorder(0, 5, 0, 0));
 						
@@ -345,19 +367,19 @@ public class SmartBudget extends CalendarDataManager{ // CalendarDataManager의 G
 		//calOpPanel, calPanel을  frameSubPanelWest에 배치
 		JPanel frameSubPanelWest = new JPanel();
 		Dimension calOpPanelSize = calOpPanel.getPreferredSize();
-		calOpPanelSize.height = 150;
+		calOpPanelSize.height = 55;	//calOpPanel height, 조절하면 아래 것도 자동 조절됨
 		calOpPanel.setPreferredSize(calOpPanelSize);
 //		Dimension calPanelSize = calPanel.getPreferredSize();	//달력 크기 조절 잘 안 됨
 //		calPanelSize.height += 200;
 //		calPanel.setPreferredSize(calPanelSize);
 		frameSubPanelWest.setLayout(new BorderLayout());
-		frameSubPanelWest.add(calOpPanel,BorderLayout.NORTH);	//달력 위쪽 부분
-		frameSubPanelWest.add(calPanel,BorderLayout.CENTER);	//달력  
+		frameSubPanelWest.add(budgetPanel,BorderLayout.NORTH);	//달력 위쪽 부분
+		frameSubPanelWest.add(calPanel,BorderLayout.CENTER);	//달력
 
 		//infoPanel, memoPanel을  frameSubPanelEast에 배치
 		JPanel frameSubPanelEast = new JPanel();
 		Dimension infoPanelSize=infoPanel.getPreferredSize();
-		infoPanelSize.height = 65;
+		infoPanelSize.height = 140;	//메모 위쪽 패널 크기
 		infoPanel.setPreferredSize(infoPanelSize);
 		frameSubPanelEast.setLayout(new BorderLayout());
 		frameSubPanelEast.add(infoPanel,BorderLayout.NORTH);
