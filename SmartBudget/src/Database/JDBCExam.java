@@ -63,9 +63,9 @@ public class JDBCExam {
 
 	public void productDelete(Data data) {// 삭제
 		try {
-			String queryString = "DELETE FROM budget where date = '" + data.get_date() + "' and price = '" + data.get_price()
-					+ "' and in_out =  '" + data.get_in_out() + "' and card =  '" + data.get_card() + "' and kinds =  '"
-					+ data.get_kinds() + "' and name = '" + data.get_name() + "';";
+			String queryString = "DELETE FROM budget where date = '" + data.get_date() + "' and price = '"
+					+ data.get_price() + "' and in_out =  '" + data.get_in_out() + "' and card =  '" + data.get_card()
+					+ "' and kinds =  '" + data.get_kinds() + "' and name = '" + data.get_name() + "';";
 
 			connection = DriverManager.getConnection(url, user, password);
 
@@ -81,7 +81,32 @@ public class JDBCExam {
 		} finally {
 			closeDatabase();
 		}
-
 	}
 
+	public void productSelectOne(String date) {
+		try {
+			String queryString = "SELECT * FROM budget WHERE date = '"+ date +"';";
+			
+			connection = DriverManager.getConnection(url, user, password);
+			
+			statement = connection.createStatement();
+			
+			resultSet = statement.executeQuery(queryString);
+			
+			while (resultSet.next())
+			{
+				System.out.println(resultSet.getString("date") + "\t" + resultSet.getInt("price") +
+						"\t" + resultSet.getInt("in_out") +"\t"+  resultSet.getInt("card") +"\t"+
+						resultSet.getInt("kinds") +"\t"+resultSet.getString("name"));
+			}
+		}
+		catch (SQLException e)
+		{
+			System.out.println("[쿼리 오류]\n" + e.getStackTrace());
+		}
+		finally
+		{
+			closeDatabase();
+		}
+	}
 }
