@@ -299,7 +299,7 @@ public class MemoCalendar extends CalendarDataManager{ // CalendarDataManager의 
 		frameSubPanelWest.add(calOpPanel,BorderLayout.NORTH);
 		frameSubPanelWest.add(calPanel,BorderLayout.CENTER);
 
-		//infoPanel, memoPanel을  frameSubPanelEast에 배치
+		//infoPanel, memoPanel을  frameSubPanelEast에 배치  
 		JPanel frameSubPanelEast = new JPanel();
 		Dimension infoPanelSize=infoPanel.getPreferredSize();
 		infoPanelSize.height = 65;

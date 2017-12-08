@@ -352,7 +352,7 @@ public class SmartBudget extends CalendarDataManager{ // CalendarDataManager의 G
 //		calPanel.setPreferredSize(calPanelSize);
 		frameSubPanelWest.setLayout(new BorderLayout());
 		frameSubPanelWest.add(calOpPanel,BorderLayout.NORTH);	//달력 위쪽 부분
-		frameSubPanelWest.add(calPanel,BorderLayout.CENTER);	//달력
+		frameSubPanelWest.add(calPanel,BorderLayout.CENTER);	//달력  
 
 		//infoPanel, memoPanel을  frameSubPanelEast에 배치
 		JPanel frameSubPanelEast = new JPanel();
