@@ -109,7 +109,7 @@ public class SmartBudget extends CalendarDataManager{ // CalendarDataManager의 G
 		JLabel bottomInfo = new JLabel("Welcome to Memo Calendar!");
 	//상수, 메세지
 	final String WEEK_DAY_NAME[] = { "SUN", "MON", "TUE", "WED", "THR", "FRI", "SAT" };
-	final String title = "메모 달력 ver 1.0";
+	final String title = "SmartBudget";
 	final String SaveButMsg1 = "를 MemoData폴더에 저장하였습니다.";
 	final String SaveButMsg2 = "메모를 먼저 작성해 주세요.";
 	final String SaveButMsg3 = "<html><font color=red>ERROR : 파일 쓰기 실패</html>";
@@ -129,7 +129,7 @@ public class SmartBudget extends CalendarDataManager{ // CalendarDataManager의 G
 		
 		mainFrame = new JFrame(title);
 		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		mainFrame.setSize(700,500);
+		mainFrame.setSize(1400,800);
 		mainFrame.setLocationRelativeTo(null);
 		mainFrame.setResizable(false);
 		//mainFrame.setIconImage(icon.getImage());
@@ -207,7 +207,7 @@ public class SmartBudget extends CalendarDataManager{ // CalendarDataManager의 G
 			calOpGC.gridwidth = 2;
 			calOpGC.gridheight = 1;
 			calOpGC.weightx = 1;
-			calOpGC.weighty = 0;
+			calOpGC.weighty = 0;	//간격
 			calOpGC.insets = new Insets(0,5,0,0);
 			calOpGC.anchor = GridBagConstraints.WEST;
 			calOpGC.fill = GridBagConstraints.NONE;
@@ -304,7 +304,7 @@ public class SmartBudget extends CalendarDataManager{ // CalendarDataManager의 G
 			selectedDate.setBorder(BorderFactory.createEmptyBorder(0, 5, 0, 0));
 						
 		memoPanel=new JPanel();
-			memoPanel.setBorder(BorderFactory.createTitledBorder("Memo"));
+			memoPanel.setBorder(BorderFactory.createTitledBorder("List"));
 			memoArea = new JTextArea();
 			memoArea.setLineWrap(true);
 			memoArea.setWrapStyleWord(true);
@@ -367,7 +367,7 @@ public class SmartBudget extends CalendarDataManager{ // CalendarDataManager의 G
 		//calOpPanel, calPanel을  frameSubPanelWest에 배치
 		JPanel frameSubPanelWest = new JPanel();
 		Dimension calOpPanelSize = calOpPanel.getPreferredSize();
-		calOpPanelSize.height = 55;	//calOpPanel height, 조절하면 아래 것도 자동 조절됨
+		calOpPanelSize.height = 60;	//calOpPanel height, 조절하면 아래 것도 자동 조절됨
 		calOpPanel.setPreferredSize(calOpPanelSize);
 //		Dimension calPanelSize = calPanel.getPreferredSize();	//달력 크기 조절 잘 안 됨
 //		calPanelSize.height += 200;
@@ -379,14 +379,14 @@ public class SmartBudget extends CalendarDataManager{ // CalendarDataManager의 G
 		//infoPanel, memoPanel을  frameSubPanelEast에 배치
 		JPanel frameSubPanelEast = new JPanel();
 		Dimension infoPanelSize=infoPanel.getPreferredSize();
-		infoPanelSize.height = 140;	//메모 위쪽 패널 크기
+		infoPanelSize.height = 150;	//메모 위쪽 패널 크기
 		infoPanel.setPreferredSize(infoPanelSize);
 		frameSubPanelEast.setLayout(new BorderLayout());
 		frameSubPanelEast.add(infoPanel,BorderLayout.NORTH);
 		frameSubPanelEast.add(memoPanel,BorderLayout.CENTER);
 
 		Dimension frameSubPanelWestSize = frameSubPanelWest.getPreferredSize();
-		frameSubPanelWestSize.width = 410;
+		frameSubPanelWestSize.width = 810;	//서쪽 크기
 		frameSubPanelWest.setPreferredSize(frameSubPanelWestSize);
 		
 		//뒤늦게 추가된 bottom Panel..
