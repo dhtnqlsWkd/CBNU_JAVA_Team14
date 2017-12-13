@@ -9,6 +9,6 @@ public class Main {
 //		Data b = new Data(2017,12,9,50000,1,1,2,"bab");
 //		Data c = new Data(2017,12,4,20000,1,0,6,"kimchi");
 
-		jdbcExam.productSelectOne("2017-12-8");
+		jdbcExam.productSelectOne("2017-12-13");
 	}
 }
