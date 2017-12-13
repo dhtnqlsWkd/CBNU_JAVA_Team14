@@ -443,6 +443,7 @@ public class SmartBudget extends CalendarDataManager{ // CalendarDataManager의 G
 					dateButs[i][j].setText("<html><b><font color="+fontColor+">"+calDates[i][j]+"</font></b></html>");
 				}
 				else dateButs[i][j].setText("<html><font color="+fontColor+">"+calDates[i][j]+"</font></html>");
+				//dateButs[i][j].setVerticalAlignment(); //달력 버튼 안에서 위치 조절
 
 				JLabel todayMark = new JLabel("<html><font color=green>*</html>");
 				dateButs[i][j].removeAll();
