@@ -206,14 +206,14 @@ public class SmartBudget extends CalendarDataManager{ // CalendarDataManager의 G
 			calOpGC.gridy = 2;
 			calOpGC.gridwidth = 2;
 			calOpGC.gridheight = 1;
-			calOpGC.weightx = 1;
+			calOpGC.weightx = 0;
 			calOpGC.weighty = 0;	//간격
 			calOpGC.insets = new Insets(0,5,0,0);
 			calOpGC.anchor = GridBagConstraints.WEST;
 			calOpGC.fill = GridBagConstraints.NONE;
 			calOpPanel.add(todayBut,calOpGC);
 			calOpGC.gridwidth = 3;
-			calOpGC.gridx = 2;
+			calOpGC.gridx = 3;
 			calOpGC.gridy = 2;
 			calOpPanel.add(todayLab,calOpGC);
 			calOpGC.anchor = GridBagConstraints.CENTER;
@@ -396,7 +396,7 @@ public class SmartBudget extends CalendarDataManager{ // CalendarDataManager의 G
 		//frame에 전부 배치
 		mainFrame.setLayout(new BorderLayout());
 		mainFrame.add(frameSubPanelWest, BorderLayout.WEST);	//서쪽
-		mainFrame.add(frameSubPanelEast, BorderLayout.CENTER);	//동쪽
+		mainFrame.add(frameSubPanelEast, BorderLayout.CENTER);	//동쪽 
 //		mainFrame.add(frameBottomPanel, BorderLayout.SOUTH);
 		mainFrame.setVisible(true);
 
@@ -443,14 +443,14 @@ public class SmartBudget extends CalendarDataManager{ // CalendarDataManager의 G
 					dateButs[i][j].setText("<html><b><font color="+fontColor+">"+calDates[i][j]+"</font></b></html>");
 				}
 				else dateButs[i][j].setText("<html><font color="+fontColor+">"+calDates[i][j]+"</font></html>");
-				//dateButs[i][j].setVerticalAlignment(); //달력 버튼 안에서 위치 조절
+				dateButs[i][j].setVerticalAlignment(JButton.NORTH); //달력 버튼 안에서 위치 조절
 
 				JLabel todayMark = new JLabel("<html><font color=green>*</html>");
 				dateButs[i][j].removeAll();
 				if(calMonth == today.get(Calendar.MONTH) &&
 						calYear == today.get(Calendar.YEAR) &&
 						calDates[i][j] == today.get(Calendar.DAY_OF_MONTH)){
-					dateButs[i][j].add(todayMark);
+					//dateButs[i][j].add(todayMark);
 					dateButs[i][j].setToolTipText("Today");
 				}
 				
