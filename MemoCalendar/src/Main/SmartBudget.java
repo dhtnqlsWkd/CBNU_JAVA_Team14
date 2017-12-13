@@ -87,6 +87,7 @@ public class SmartBudget extends CalendarDataManager{ // CalendarDataManager의 G
 			JLabel todayLab;
 		
 		JPanel budgetOpPanel;
+			JPanel bip;
 	
 	JPanel calPanel;
 		JButton weekDaysName[];
@@ -95,6 +96,7 @@ public class SmartBudget extends CalendarDataManager{ // CalendarDataManager의 G
 	
 	JPanel infoPanel;
 		JLabel infoClock;
+		OptionPanel optionPanel;
 	
 	JPanel memoPanel;
 		JLabel selectedDate;
@@ -242,12 +244,14 @@ public class SmartBudget extends CalendarDataManager{ // CalendarDataManager의 G
 		Dimension budgetOpPanelSize = budgetOpPanel.getPreferredSize();
 		budgetOpPanelSize.height = 100;
 		budgetOpPanel.setPreferredSize(budgetOpPanelSize);
+		bip = new BudgetInfoPanel();
+		budgetOpPanel.add(bip);
 		
 		budgetPanel = new JPanel();
 		budgetPanel.setLayout(new BorderLayout());
 		budgetPanel.add(calOpPanel, BorderLayout.NORTH);
 		budgetPanel.add(budgetOpPanel, BorderLayout.CENTER);
-			
+		
 //		todayPanel = new JPanel();
 //			todayPanel.setLayout(new GridBagLayout());
 //			GridBagConstraints todayGC = new GridBagConstraints();
@@ -302,6 +306,8 @@ public class SmartBudget extends CalendarDataManager{ // CalendarDataManager의 G
 			//infoPanel.add(infoClock, BorderLayout.NORTH);
 			selectedDate = new JLabel("<Html><font size=3>"+(today.get(Calendar.MONTH)+1)+"/"+today.get(Calendar.DAY_OF_MONTH)+"/"+today.get(Calendar.YEAR)+"&nbsp;(Today)</html>", SwingConstants.LEFT);
 			selectedDate.setBorder(BorderFactory.createEmptyBorder(0, 5, 0, 0));
+			optionPanel = new OptionPanel();
+			infoPanel.add(optionPanel);
 						
 		memoPanel=new JPanel();
 			memoPanel.setBorder(BorderFactory.createTitledBorder("List"));
