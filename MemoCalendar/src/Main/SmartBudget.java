@@ -106,6 +106,7 @@ public class SmartBudget extends CalendarDataManager{ // CalendarDataManager의 G
 		JButton saveBut; 
 		JButton delBut; 
 		JButton clearBut;
+		ListPanel listPanel;
 	
 	JPanel frameBottomPanel;
 		JLabel bottomInfo = new JLabel("Welcome to Memo Calendar!");
@@ -366,9 +367,11 @@ public class SmartBudget extends CalendarDataManager{ // CalendarDataManager의 G
 			memoSubPanel.add(delBut);
 			memoSubPanel.add(clearBut);
 			memoPanel.setLayout(new BorderLayout());
-			memoPanel.add(selectedDate, BorderLayout.NORTH);
-			memoPanel.add(memoAreaSP,BorderLayout.CENTER);
-			memoPanel.add(memoSubPanel,BorderLayout.SOUTH);
+			listPanel = new ListPanel();
+			memoPanel.add(listPanel);
+			//memoPanel.add(selectedDate, BorderLayout.NORTH);
+			//memoPanel.add(memoAreaSP,BorderLayout.CENTER);
+			//memoPanel.add(memoSubPanel,BorderLayout.SOUTH);
 
 		//calOpPanel, calPanel을  frameSubPanelWest에 배치
 		JPanel frameSubPanelWest = new JPanel();
