@@ -67,7 +67,7 @@ public class JDBCExam {
 		try {
 			String queryString = "DELETE FROM budget where date = '" + data.get_date() + "' and price = '"
 					+ data.get_price() + "' and in_out =  '" + data.get_in_out() + "' and card =  '" + data.get_card()
-					+ "' and kinds =  '" + data.get_kinds() + "' and name = '" + data.get_name() + "';";
+					+ "' and kinds =  '" + data.get_kinds() + "';";
 
 			connection = DriverManager.getConnection(url, user, password);
 

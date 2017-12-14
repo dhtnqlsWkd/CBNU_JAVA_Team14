@@ -28,7 +28,7 @@ public class JChart {
 		ChartFrame frame1 = new ChartFrame("지출 분석", chart);
 		
 		frame1.setSize(800, 400);
-
+		frame1.setLocation(1800,200);
 		frame1.setVisible(true);
 
 	}
@@ -42,6 +42,7 @@ public class JChart {
 		ChartFrame frame1 = new ChartFrame("지출 그래프", chart);
 		
 		frame1.setSize(800, 400);
+		frame1.setLocation(1800,200);
 
 		frame1.setVisible(true);		
 	}

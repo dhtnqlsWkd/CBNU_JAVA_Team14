@@ -219,6 +219,7 @@ public class SmartBudget extends CalendarDataManager { // CalendarDataManager의 
 		calOpGC.gridwidth = 2;
 		calOpGC.gridx = 5;
 		calOpGC.gridy = 2;
+		synbtn.addActionListener(btnAListener);
 		calOpPanel.add(synbtn, calOpGC);
 		calOpGC.anchor = GridBagConstraints.CENTER;
 		calOpGC.gridwidth = 1;
@@ -508,6 +509,9 @@ public class SmartBudget extends CalendarDataManager { // CalendarDataManager의 
 						&& calDates[i][j] == today.get(Calendar.DAY_OF_MONTH)) {
 					dateButs[i][j].setBackground(Color.LIGHT_GRAY);
 					dateButs[i][j].setToolTipText("Today");
+				}
+				else {
+					dateButs[i][j].setBackground(Color.white);
 				}
 
 				if (calDates[i][j] == 0)
@@ -868,7 +872,8 @@ public class SmartBudget extends CalendarDataManager { // CalendarDataManager의 
 					addDialog = new AddDialog();
 					addDialog.okButton.addActionListener(btnAListener);
 					addDialog.cancelButton.addActionListener(btnAListener);
-					addDialog.setLocation(600, 320);
+					//addDialog.setLocation(600, 320);
+					addDialog.setLocation(2000, 400);
 					addDialog.rdbtnNewRadioButton.addItemListener(new ButtonItemListener());
 					addDialog.rdbtnNewRadioButton_1.addItemListener(new ButtonItemListener());
 					addDialog.setVisible(true);
@@ -883,7 +888,8 @@ public class SmartBudget extends CalendarDataManager { // CalendarDataManager의 
 				deleteDialog = new DeleteDialog();
 				deleteDialog.okbtn.addActionListener(btnAListener);
 				deleteDialog.cancelbtn.addActionListener(btnAListener);
-				deleteDialog.setLocation(800, 450);
+				//deleteDialog.setLocation(800, 450);
+				deleteDialog.setLocation(2200, 450);
 				deleteDialog.setVisible(true);
 			} else if (s.equals("수정")) {
 				if (e.getSource().equals(updateDialog.okButton)) {
@@ -1127,7 +1133,8 @@ public class SmartBudget extends CalendarDataManager { // CalendarDataManager의 
 					updateDialog = new UpdateDialog();
 					updateDialog.okButton.addActionListener(btnAListener);
 					updateDialog.cancelButton.addActionListener(btnAListener);
-					updateDialog.setLocation(600, 320);
+					//updateDialog.setLocation(600, 320);
+					updateDialog.setLocation(2000, 400);
 					updateDialog.rdbtnNewRadioButton.addItemListener(new ButtonItemListener());
 					updateDialog.rdbtnNewRadioButton_1.addItemListener(new ButtonItemListener());
 					updateDialog.setVisible(true);
@@ -1186,6 +1193,32 @@ public class SmartBudget extends CalendarDataManager { // CalendarDataManager의 
 				chart.showLineChart(calYear, calMonth + 1);
 			} else if (s.equals("지출 분석")) {
 				chart.showPieChart(calYear, calMonth + 1);
+			}
+			else if (s.equals("동기화")) {
+				String[] strarr = new String[10];
+				String tmp = Integer.toString(calYear) + "-"; // tmp는 날짜 스트링
+				if (calMonth + 1 < 10)
+					tmp += "0";
+				tmp += Integer.toString(calMonth + 1) + "-";
+				if (calDayOfMon < 10)
+					tmp += "0";
+				tmp += Integer.toString(calDayOfMon);
+				
+				strarr = new String[10];
+				for (int i = 1; i <= jdbc.productCountOne(tmp); i++) {
+					bufarr[i - 1] = jdbc.productSelectOne(tmp, i);
+					strarr[i - 1] = bufarr[i - 1].get_str();
+				}
+				int sum = jdbc.productSum_month_card(calYear, calMonth + 1, 0, 0)
+						- jdbc.productSum_month_card(calYear, calMonth + 1, 1, 0);
+				int sum1 = jdbc.productSum_month_card(calYear, calMonth + 1, 0, 1)
+						- jdbc.productSum_month_card(calYear, calMonth + 1, 1, 1);
+				bip.lblNewLabel.setText("수입 : " + jdbc.productSum_month(calYear, calMonth + 1, 0));
+				bip.lblNewLabel_1.setText("지출 : " + jdbc.productSum_month(calYear, calMonth + 1, 1));
+				bip.lblNewLabel_3.setText("현금 잔액 : " + sum);
+				bip.lblNewLabel_2.setText("카드 잔액 : " + sum1);
+				listPanel.list.setListData(strarr);
+				showCal();
 			}
 
 		}
