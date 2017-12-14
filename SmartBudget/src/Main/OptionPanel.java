@@ -10,6 +10,8 @@ import javax.swing.JLabel;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.Color;
 
 public class OptionPanel extends JPanel {
 
@@ -18,50 +20,42 @@ public class OptionPanel extends JPanel {
 	 */
 	public OptionPanel() {
 		
-		JButton btnNewButton_1 = new JButton("\uB3D9\uAE30\uD654");
-		btnNewButton_1.setBounds(0, 1, 75, 34);
-		btnNewButton_1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-			}
-		});
 		setLayout(null);
-		add(btnNewButton_1);
-		
-		JLabel label = new JLabel("");
-		label.setBounds(183, 1, 183, 34);
-		add(label);
-		
-		JLabel label_3 = new JLabel("");
-		label_3.setBounds(366, 1, 183, 34);
-		add(label_3);
-		
-		JLabel lblNewLabel = new JLabel("");
-		lblNewLabel.setBounds(0, 35, 183, 34);
-		add(lblNewLabel);
-		
-		JLabel label_5 = new JLabel("");
-		label_5.setBounds(183, 35, 183, 34);
-		add(label_5);
-		
-		JLabel label_4 = new JLabel("");
-		label_4.setBounds(366, 35, 183, 34);
-		add(label_4);
-		
-		JButton btnNewButton = new JButton("\uCE74\uB4DC \uC815\uBCF4");
-		btnNewButton.setBounds(269, 69, 152, 68);
-		add(btnNewButton);
-		
-		JLabel label_1 = new JLabel("");
-		label_1.setBounds(183, 69, 183, 34);
-		add(label_1);
 		
 		JButton btnNewButton_2 = new JButton("\uD1B5\uACC4");
-		btnNewButton_2.setBounds(0, 69, 152, 68);
+		btnNewButton_2.setFont(new Font("±¼¸²", Font.PLAIN, 20));
+		btnNewButton_2.setBounds(0, 105, 73, 34);
 		add(btnNewButton_2);
 		
-		JLabel label_2 = new JLabel("");
-		label_2.setBounds(0, 103, 183, 34);
-		add(label_2);
+		JLabel lblNewLabel = new JLabel("mart");
+		lblNewLabel.setBackground(Color.LIGHT_GRAY);
+		lblNewLabel.setFont(new Font("Comic Sans MS", Font.PLAIN, 65));
+		lblNewLabel.setBounds(168, 12, 147, 127);
+		lblNewLabel.setOpaque(true);
+		add(lblNewLabel);
+		
+		JLabel lblNewLabel_1 = new JLabel("S");
+		lblNewLabel_1.setForeground(Color.RED);
+		lblNewLabel_1.setBackground(Color.LIGHT_GRAY);
+		lblNewLabel_1.setFont(new Font("Comic Sans MS", Font.PLAIN, 65));
+		lblNewLabel_1.setBounds(123, 12, 45, 127);
+		lblNewLabel_1.setOpaque(true);
+		add(lblNewLabel_1);
+		
+		JLabel lblNewLabel_2 = new JLabel("B");
+		lblNewLabel_2.setForeground(Color.BLUE);
+		lblNewLabel_2.setFont(new Font("Comic Sans MS", Font.PLAIN, 65));
+		lblNewLabel_2.setBackground(Color.LIGHT_GRAY);
+		lblNewLabel_2.setBounds(314, 12, 45, 127);
+		lblNewLabel_2.setOpaque(true);
+		add(lblNewLabel_2);
+		
+		JLabel lblNewLabel_3 = new JLabel("udget");
+		lblNewLabel_3.setFont(new Font("Comic Sans MS", Font.PLAIN, 65));
+		lblNewLabel_3.setBackground(Color.LIGHT_GRAY);
+		lblNewLabel_3.setBounds(359, 12, 177, 127);
+		lblNewLabel_3.setOpaque(true);
+		add(lblNewLabel_3);
 
 	}
 
