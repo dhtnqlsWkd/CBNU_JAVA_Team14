@@ -1,17 +1,15 @@
 package Database;
 
 public class Data {
-	private int date_year;// 날짜
-	private int date_month;
-	private int date_day;
+	private String date;//날짜
 	private int price;// 가격
 	private int in_out;// 입금 혹은 출금
 	private int card;// 현금지출인지 카드지출인지
 	private int kinds;// 지출/입금 분류
 	private String name; // 지출/입금 자세한 내역
 
-	Data(int year,int month,int day,int price, int in_out, int card, int kinds, String name){
-		set_date(year,month,day);
+	Data(String date,int price, int in_out, int card, int kinds, String name){
+		set_date(date);
 		set_price(price);
 		set_in_out(in_out);
 		set_card(card);
@@ -19,10 +17,8 @@ public class Data {
 		set_name(name);
 	}
 	
-	public void set_date(int year,int month, int day){
-		 date_year = year;
-		 date_month = month;
-		 date_day = day;
+	public void set_date(String date){
+		this.date = date;
 	}
 	public void set_price(int price) {
 		this.price = price;
@@ -41,8 +37,7 @@ public class Data {
 	}
 	
 	public String get_date() {
-		String re_date = String.valueOf(date_year)+"-"+String.valueOf(date_month)+"-"+String.valueOf(date_day);
-		return re_date;
+		return date;
 	}
 	
 	public int get_price() {
