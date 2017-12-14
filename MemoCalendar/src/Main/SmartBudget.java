@@ -12,6 +12,8 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import javax.swing.*;
 
+
+
 class CalendarDataManager{ // 6*7배열에 나타낼 달력 값을 구하는 class
 	static final int CAL_WIDTH = 7;
 	final static int CAL_HEIGHT = 6;
@@ -87,6 +89,7 @@ public class SmartBudget extends CalendarDataManager{ // CalendarDataManager의 G
 			
 			JButton todayBut;
 			JLabel todayLab;
+			JButton synbtn;
 		
 		JPanel budgetOpPanel;
 			JPanel bip;
@@ -111,8 +114,9 @@ public class SmartBudget extends CalendarDataManager{ // CalendarDataManager의 G
 		ListPanel listPanel;
 			ButtonActionListener btnAListener = new ButtonActionListener();
 		
-	AddDialog addDialog;
-	DeleteDialog deleteDialog;
+	AddDialog addDialog = new AddDialog();
+	DeleteDialog deleteDialog = new DeleteDialog();
+	UpdateDialog updateDialog = new UpdateDialog();
 	
 	JPanel frameBottomPanel;
 		JLabel bottomInfo = new JLabel("Welcome to Memo Calendar!");
@@ -126,6 +130,8 @@ public class SmartBudget extends CalendarDataManager{ // CalendarDataManager의 G
 	final String DelButMsg2 = "작성되지 않았거나 이미 삭제된 memo입니다.";
 	final String DelButMsg3 = "<html><font color=red>ERROR : 파일 삭제 실패</html>";
 	final String ClrButMsg1 = "입력된 메모를 비웠습니다.";
+	
+	//
 
 	public static void main(String[] args){
 		SwingUtilities.invokeLater(new Runnable(){
@@ -154,6 +160,7 @@ public class SmartBudget extends CalendarDataManager{ // CalendarDataManager의 G
 			todayBut.setToolTipText("Today");
 			todayBut.addActionListener(lForCalOpButtons);
 			todayLab = new JLabel(today.get(Calendar.MONTH)+1+"/"+today.get(Calendar.DAY_OF_MONTH)+"/"+today.get(Calendar.YEAR));
+			synbtn = new JButton("\uB3D9\uAE30\uD654");
 			
 			lYearBut = new JButton("<<");
 			lYearBut.setToolTipText("Previous Year");
@@ -185,6 +192,10 @@ public class SmartBudget extends CalendarDataManager{ // CalendarDataManager의 G
 			calOpGC.gridx = 3;
 			calOpGC.gridy = 2;
 			calOpPanel.add(todayLab,calOpGC);
+			calOpGC.gridwidth = 2;
+			calOpGC.gridx = 5;
+			calOpGC.gridy = 2;
+			calOpPanel.add(synbtn,calOpGC);
 			calOpGC.anchor = GridBagConstraints.CENTER;
 			calOpGC.gridwidth = 1;
 			calOpGC.gridx = 1;
@@ -318,6 +329,7 @@ public class SmartBudget extends CalendarDataManager{ // CalendarDataManager의 G
 			listPanel = new ListPanel();
 			listPanel.btnNewButton.addActionListener(btnAListener);
 			listPanel.btnNewButton_1.addActionListener(btnAListener);
+			listPanel.btnNewButton_2.addActionListener(btnAListener);
 			memoPanel.add(listPanel);
 			//memoPanel.add(selectedDate, BorderLayout.NORTH);
 			//memoPanel.add(memoAreaSP,BorderLayout.CENTER);
@@ -398,18 +410,35 @@ public class SmartBudget extends CalendarDataManager{ // CalendarDataManager의 G
 				else if(j==6) fontColor="blue";
 				
 				File f =new File("MemoData/"+calYear+((calMonth+1)<10?"0":"")+(calMonth+1)+(calDates[i][j]<10?"0":"")+calDates[i][j]+".txt");
+				
 				if(f.exists()){
 					dateButs[i][j].setText("<html><b><font color="+fontColor+">"+calDates[i][j]+"</font></b></html>");
 				}
 				else dateButs[i][j].setText("<html><font color="+fontColor+">"+calDates[i][j]+"</font></html>");
 				dateButs[i][j].setVerticalAlignment(JButton.NORTH); //달력 버튼 안에서 위치 조절
 
-				JLabel todayMark = new JLabel("<html><font color=green>*</html>");
+				//JLabel todayMark = new JLabel("<html><font color=green>*</html>");
+				int Sum1 = new JDBCExam().productSum_day(calYear, calMonth+1, calDates[i][j], 1);
+	            int Sum2 = new JDBCExam().productSum_day(calYear, calMonth+1, calDates[i][j], 0);
 				dateButs[i][j].removeAll();
+				
+				JLabel a1 = new JLabel("<html><font color=green>" + Sum1 +"</font></html>");
+	            JLabel a2 = new JLabel("<html><font color=orange><br><br>" + Sum2 +"</font></html>");
+	            a1.setHorizontalAlignment(SwingConstants.CENTER);
+	            a2.setHorizontalAlignment(SwingConstants.CENTER);
+	            if(Sum1 !=0 && Sum2 != 0) {
+	               dateButs[i][j].add(a1);               
+	               dateButs[i][j].add(a2);
+	            }else if(Sum1 ==0 && Sum2 !=0) {
+	               dateButs[i][j].add(a2);
+	            }else if(Sum1 !=0 && Sum2 ==0) {
+	               dateButs[i][j].add(a1);
+	            }
+	            
 				if(calMonth == today.get(Calendar.MONTH) &&
 						calYear == today.get(Calendar.YEAR) &&
 						calDates[i][j] == today.get(Calendar.DAY_OF_MONTH)){
-					//dateButs[i][j].add(todayMark);
+					dateButs[i][j].setBackground(Color.LIGHT_GRAY);
 					dateButs[i][j].setToolTipText("Today");
 				}
 				
@@ -511,23 +540,62 @@ public class SmartBudget extends CalendarDataManager{ // CalendarDataManager의 G
 			s = ((JButton) e.getSource()).getText();
 			
 			if (s.equals("추가")) {
-				addDialog = new AddDialog();
-				addDialog.setLocation(600, 320);
-				addDialog.rdbtnNewRadioButton.addItemListener(new ButtonItemListener());
-				addDialog.rdbtnNewRadioButton_1.addItemListener(new ButtonItemListener());
-				addDialog.setVisible(true);
-				
-				for (int i = 0; i < addDialog.rdbtn1.length; i++)
-					addDialog.rdbtn1[i].setVisible(false);
-
-				for (int i = 0; i < addDialog.rdbtn2.length; i++)
-					addDialog.rdbtn2[i].setVisible(false);
+				if (e.getSource().equals(addDialog.okButton))
+					;
+				else {
+					addDialog = new AddDialog();
+					addDialog.okButton.addActionListener(btnAListener);
+					addDialog.cancelButton.addActionListener(btnAListener);
+					addDialog.setLocation(600, 320);
+					addDialog.rdbtnNewRadioButton.addItemListener(new ButtonItemListener());
+					addDialog.rdbtnNewRadioButton_1.addItemListener(new ButtonItemListener());
+					addDialog.setVisible(true);
+					
+					for (int i = 0; i < addDialog.rdbtn1.length; i++)
+						addDialog.rdbtn1[i].setVisible(false);
+	
+					for (int i = 0; i < addDialog.rdbtn2.length; i++)
+						addDialog.rdbtn2[i].setVisible(false);
+				}
 			}
 			else if (s.equals("삭제")) {
 				deleteDialog = new DeleteDialog();
-				deleteDialog.setLocation(700, 350);
+				deleteDialog.okbtn.addActionListener(btnAListener);
+				deleteDialog.cancelbtn.addActionListener(btnAListener);
+				deleteDialog.setLocation(800, 450);
 				deleteDialog.setVisible(true);
 			}
+			else if (s.equals("수정")) {
+				if (e.getSource().equals(updateDialog.okButton))
+					;
+				else {
+					updateDialog = new UpdateDialog();
+					updateDialog.okButton.addActionListener(btnAListener);
+					updateDialog.cancelButton.addActionListener(btnAListener);
+					updateDialog.setLocation(600, 320);
+					updateDialog.rdbtnNewRadioButton.addItemListener(new ButtonItemListener());
+					updateDialog.rdbtnNewRadioButton_1.addItemListener(new ButtonItemListener());
+					updateDialog.setVisible(true);
+					
+					for (int i = 0; i < updateDialog.rdbtn1.length; i++)
+						updateDialog.rdbtn1[i].setVisible(false);
+
+					for (int i = 0; i < updateDialog.rdbtn2.length; i++)
+						updateDialog.rdbtn2[i].setVisible(false);
+				}
+			}
+			else if (s.equals("확인")) {
+				
+			}
+			else if (s.equals("취소")) {
+				if (e.getSource().equals(addDialog.cancelButton))
+					addDialog.setVisible(false);
+				else if (e.getSource().equals(deleteDialog.cancelbtn))
+					deleteDialog.setVisible(false);
+				else if (e.getSource().equals(updateDialog.cancelButton))
+					updateDialog.setVisible(false);
+			}
+			
 		}
 		
 	}
@@ -545,6 +613,14 @@ public class SmartBudget extends CalendarDataManager{ // CalendarDataManager의 G
 				
 				for (int i = 0; i < addDialog.rdbtn1.length; i++) 
 					addDialog.rdbtn1[i].setVisible(true);
+				
+				
+				
+				for (int i = 0; i < updateDialog.rdbtn2.length; i++)
+					updateDialog.rdbtn2[i].setVisible(false);
+				
+				for (int i = 0; i < updateDialog.rdbtn1.length; i++) 
+					updateDialog.rdbtn1[i].setVisible(true);
 			}
 			else if (s.equals("지출")) {
 				for (int i = 0; i < addDialog.rdbtn1.length; i++) 
@@ -552,6 +628,14 @@ public class SmartBudget extends CalendarDataManager{ // CalendarDataManager의 G
 				
 				for (int i = 0; i < addDialog.rdbtn2.length; i++)
 					addDialog.rdbtn2[i].setVisible(true);
+				
+				
+				
+				for (int i = 0; i < updateDialog.rdbtn1.length; i++) 
+					updateDialog.rdbtn1[i].setVisible(false);
+				
+				for (int i = 0; i < updateDialog.rdbtn2.length; i++)
+					updateDialog.rdbtn2[i].setVisible(true);
 			}
 		}
 		
