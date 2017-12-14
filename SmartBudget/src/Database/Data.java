@@ -62,44 +62,44 @@ public class Data {
 	public String get_str() {
 		String str;
 		
-		str = Integer.toString(price) + "	";
+		str = Integer.toString(price) + "/";
 		if(in_out ==0) {
-			str += "수입	";
+			str += "수입 /";
 			if(card == 0) {
-				str += "현금	";
+				str += "현금	/";
 			}else{
-				str += "계좌	";
+				str += "계좌	/";
 			}
 			
 			if(kinds == 0) {
-				str += "월급	";
+				str += "월급	/";
 			}else if(kinds ==1) {
-				str += "용돈	";
+				str += "용돈	/";
 			}else {
-				str += "기타	";
+				str += "기타	/";
 			}
 		}else {
-			str += "지출	";
+			str += "지출	/";
 			if(card ==0) {
-				str += "현금	";			
+				str += "현금	/";			
 			}else if(card ==1) {
-				str += "체크카드	";
+				str += "체크카드	/";
 			}else {
-				str += "신용카드	";
+				str += "신용카드	/";
 			}
 			
 			if(kinds == 0) {
-				str += "식비	";
+				str += "식비	/";
 			}else if(kinds ==1) {
-				str += "교통비	";
+				str += "교통비	/";
 			}else if(kinds ==2) {
-				str +="카페	";
+				str +="카페	/";
 			}else if(kinds ==3) {
-				str +="생필품	";
+				str +="생필품	/";
 			}else if(kinds ==4) {
-				str +="문화생활	";
+				str +="문화생활	/";
 			}else {
-				str +="공과금	";
+				str +="공과금	/";
 			}
 			
 		}

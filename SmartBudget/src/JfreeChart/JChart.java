@@ -25,7 +25,7 @@ public class JChart {
 		
 		JFreeChart chart = demo.getPieChart(year, month);
 
-		ChartFrame frame1 = new ChartFrame("Chart", chart);
+		ChartFrame frame1 = new ChartFrame("지출 분석", chart);
 		
 		frame1.setSize(800, 400);
 
@@ -39,7 +39,7 @@ public class JChart {
 		
 		JFreeChart chart = demo.getLineChart(year, month);
 
-		ChartFrame frame1 = new ChartFrame("Chart", chart);
+		ChartFrame frame1 = new ChartFrame("지출 그래프", chart);
 		
 		frame1.setSize(800, 400);
 
@@ -53,18 +53,18 @@ public class JChart {
 
 		// dataset1.addValue(a.productSum_kinds(2017, 12, 1, 1),"지출");
 		String s1 = "식비";
-		String s2 = "문화생활";
+		String s2 = "교통비";
 		String s3 = "카페";
-		String s4 = "교통비";
-		String s5 = "생필품";
+		String s4 = "생필품";
+		String s5 = "문화생활";
 		String s6 = "공과금";
 
-		dataset1.setValue(s1, a.productSum_kinds(year, month, 1, 1));
-		dataset1.setValue(s2, a.productSum_kinds(year, month, 1, 2));
-		dataset1.setValue(s3, a.productSum_kinds(year, month, 1, 3));
-		dataset1.setValue(s4, a.productSum_kinds(year, month, 1, 4));
-		dataset1.setValue(s5, a.productSum_kinds(year, month, 1, 5));
-		dataset1.setValue(s6, a.productSum_kinds(year, month, 1, 6));
+		dataset1.setValue(s1, a.productSum_kinds(year, month, 1, 0));
+		dataset1.setValue(s2, a.productSum_kinds(year, month, 1, 1));
+		dataset1.setValue(s3, a.productSum_kinds(year, month, 1, 2));
+		dataset1.setValue(s4, a.productSum_kinds(year, month, 1, 3));
+		dataset1.setValue(s5, a.productSum_kinds(year, month, 1, 4));
+		dataset1.setValue(s6, a.productSum_kinds(year, month, 1, 5));
 		JFreeChart chart = ChartFactory.createPieChart("", dataset1, true, true, false);
 
 		chart.getTitle().setFont(new Font("돋움", Font.BOLD, 14));
