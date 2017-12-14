@@ -156,12 +156,35 @@ public class JDBCExam {
 			return re_data;
 		}
 	}
-
+	
 	public int productSum_month(int year, int month, int i_o) {// 해달 월 합계 게산
 		int return_num = 0;
 		try {
 			String queryString = "SELECT SUM(price) FROM budget WHERE (date between '" + year + "-" + month
 					+ "-01' and '" + year + "-" + month + "-31') and (in_out=" + i_o + ");";
+
+			connection = DriverManager.getConnection(url, user, password);
+
+			statement = connection.createStatement();
+
+			resultSet = statement.executeQuery(queryString);
+
+			resultSet.next();
+
+			return_num = resultSet.getInt("sum(price)");
+		} catch (SQLException e) {
+			System.out.println("[쿼리 오류]\n" + e.getStackTrace());
+		} finally {
+			closeDatabase();
+			return return_num;
+		}
+	}
+	
+	public int productSum_month_card(int year, int month, int i_o, int card) {// 해달 월 합계 게산
+		int return_num = 0;
+		try {
+			String queryString = "SELECT SUM(price) FROM budget WHERE (date between '" + year + "-" + month
+					+ "-01' and '" + year + "-" + month + "-31') and (in_out=" + i_o + ") and (card =" + card +");";
 
 			connection = DriverManager.getConnection(url, user, password);
 

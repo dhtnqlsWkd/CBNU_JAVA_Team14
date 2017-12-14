@@ -12,6 +12,7 @@ import java.io.*;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import javax.swing.*;
+import JfreeChart.*;
 
 
 
@@ -132,7 +133,8 @@ public class SmartBudget extends CalendarDataManager{ // CalendarDataManager의 G
 	final String DelButMsg3 = "<html><font color=red>ERROR : 파일 삭제 실패</html>";
 	final String ClrButMsg1 = "입력된 메모를 비웠습니다.";
 	
-	//
+	Data buffer1 = new Data();
+	Data buffer2 = new Data();//
 
 	public static void main(String[] args){
 		SwingUtilities.invokeLater(new Runnable(){
@@ -141,6 +143,7 @@ public class SmartBudget extends CalendarDataManager{ // CalendarDataManager의 G
 			}
 		});
 	}
+	
 	public SmartBudget(){ //구성요소 순으로 정렬되어 있음. 각 판넬 사이에 빈줄로 구별
 		
 		mainFrame = new JFrame(title);
@@ -223,7 +226,7 @@ public class SmartBudget extends CalendarDataManager{ // CalendarDataManager의 G
 		Dimension budgetOpPanelSize = budgetOpPanel.getPreferredSize();
 		budgetOpPanelSize.height = 100;
 		budgetOpPanel.setPreferredSize(budgetOpPanelSize);
-		bip = new BudgetInfoPanel();
+		bip = new BudgetInfoPanel(calYear,calMonth+1);
 		budgetOpPanel.add(bip);
 		
 		budgetPanel = new JPanel();
@@ -448,6 +451,11 @@ public class SmartBudget extends CalendarDataManager{ // CalendarDataManager의 G
 			}
 		}
 	}
+	private void showstatis() {
+		
+	}
+	
+	
 	private class ListenForCalOpButtons implements ActionListener{
 		public void actionPerformed(ActionEvent e) {
 			if(e.getSource() == todayBut){
@@ -542,6 +550,7 @@ public class SmartBudget extends CalendarDataManager{ // CalendarDataManager의 G
 			
 			if (s.equals("추가")) {
 				if (e.getSource().equals(addDialog.okButton))
+					
 					;
 				else {
 					addDialog = new AddDialog();
@@ -641,4 +650,5 @@ public class SmartBudget extends CalendarDataManager{ // CalendarDataManager의 G
 		}
 		
 	}
+	
 }

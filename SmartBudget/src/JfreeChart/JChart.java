@@ -4,6 +4,9 @@ import java.awt.*;
 import Database.*;
 
 import java.util.Calendar;
+
+import javax.swing.*;
+
 import org.jfree.chart.*;
 import org.jfree.chart.axis.*;
 import org.jfree.chart.labels.*;
@@ -16,19 +19,33 @@ import org.jfree.ui.*;
 public class JChart {
 	// Run As > Java Application 으로 실행하면 바로 확인할 수 있음.
 
-	public static void main(final String[] args) {
+	public void showPieChart(int year, int month) {
 
 		JChart demo = new JChart();
 		
-		JFreeChart chart = demo.getPieChart(2017, 12);
+		JFreeChart chart = demo.getPieChart(year, month);
 
 		ChartFrame frame1 = new ChartFrame("Chart", chart);
-
+		
 		frame1.setSize(800, 400);
 
 		frame1.setVisible(true);
 
 	}
+	
+	public void showLineChart(int year,int month) {
+		
+		JChart demo = new JChart();
+		
+		JFreeChart chart = demo.getLineChart(year, month);
+
+		ChartFrame frame1 = new ChartFrame("Chart", chart);
+		
+		frame1.setSize(800, 400);
+
+		frame1.setVisible(true);		
+	}
+	
 
 	public JFreeChart getPieChart(int year, int month) {
 		JDBCExam a = new JDBCExam();
