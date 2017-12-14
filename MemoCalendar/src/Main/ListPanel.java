@@ -12,32 +12,35 @@ import java.awt.Font;
 
 public class ListPanel extends JPanel {
 
-	/**
-	 * Create the panel.
-	 */
+	JList list;
+	JLabel lblNewLabel;
+	JButton btnNewButton;
+	JButton btnNewButton_1;
+	JButton btnNewButton_2;
+	
 	public ListPanel() {
 		setLayout(null);
 		
-		JList list = new JList();
+		list = new JList();
 		list.setBorder(new LineBorder(new Color(0, 0, 0)));
 		list.setBounds(0, 14, 572, 517);
 		add(list);
 		
-		JLabel lblNewLabel = new JLabel("New label");
+		lblNewLabel = new JLabel("New label");
 		lblNewLabel.setBounds(14, 0, 62, 12);
 		add(lblNewLabel);
 		
-		JButton btnNewButton = new JButton("\uCD94\uAC00");
+		btnNewButton = new JButton("\uCD94\uAC00");
 		btnNewButton.setFont(new Font("±¼¸²", Font.PLAIN, 20));
 		btnNewButton.setBounds(67, 543, 105, 39);
 		add(btnNewButton);
 		
-		JButton btnNewButton_1 = new JButton("\uC0AD\uC81C");
+		btnNewButton_1 = new JButton("\uC0AD\uC81C");
 		btnNewButton_1.setFont(new Font("±¼¸²", Font.PLAIN, 20));
 		btnNewButton_1.setBounds(232, 543, 105, 39);
 		add(btnNewButton_1);
 		
-		JButton btnNewButton_2 = new JButton("\uC218\uC815");
+		btnNewButton_2 = new JButton("\uC218\uC815");
 		btnNewButton_2.setFont(new Font("±¼¸²", Font.PLAIN, 20));
 		btnNewButton_2.setBounds(397, 543, 105, 39);
 		add(btnNewButton_2);

@@ -5,6 +5,8 @@ package Main;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.io.*;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -107,6 +109,10 @@ public class SmartBudget extends CalendarDataManager{ // CalendarDataManager의 G
 		JButton delBut; 
 		JButton clearBut;
 		ListPanel listPanel;
+			ButtonActionListener btnAListener = new ButtonActionListener();
+		
+	AddDialog addDialog;
+	DeleteDialog deleteDialog;
 	
 	JPanel frameBottomPanel;
 		JLabel bottomInfo = new JLabel("Welcome to Memo Calendar!");
@@ -163,46 +169,6 @@ public class SmartBudget extends CalendarDataManager{ // CalendarDataManager의 G
 			nYearBut.setToolTipText("Next Year");
 			nYearBut.addActionListener(lForCalOpButtons);
 			
-			//원본
-//			calOpPanel.setLayout(new GridBagLayout());
-//			GridBagConstraints calOpGC = new GridBagConstraints();
-//			calOpGC.gridx = 1;
-//			calOpGC.gridy = 1;
-//			calOpGC.gridwidth = 2;
-//			calOpGC.gridheight = 1;
-//			calOpGC.weightx = 1;
-//			calOpGC.weighty = 1;
-//			calOpGC.insets = new Insets(5,5,0,0);
-//			calOpGC.anchor = GridBagConstraints.WEST;
-//			calOpGC.fill = GridBagConstraints.NONE;
-//			calOpPanel.add(todayBut,calOpGC);
-//			calOpGC.gridwidth = 3;
-//			calOpGC.gridx = 2;
-//			calOpGC.gridy = 1;
-//			calOpPanel.add(todayLab,calOpGC);
-//			calOpGC.anchor = GridBagConstraints.CENTER;
-//			calOpGC.gridwidth = 1;
-//			calOpGC.gridx = 1;
-//			calOpGC.gridy = 2;
-//			calOpPanel.add(lYearBut,calOpGC);
-//			calOpGC.gridwidth = 1;
-//			calOpGC.gridx = 2;
-//			calOpGC.gridy = 2;
-//			calOpPanel.add(lMonBut,calOpGC);
-//			calOpGC.gridwidth = 2;
-//			calOpGC.gridx = 3;
-//			calOpGC.gridy = 2;
-//			calOpPanel.add(curMMYYYYLab,calOpGC);
-//			calOpGC.gridwidth = 1;
-//			calOpGC.gridx = 5;
-//			calOpGC.gridy = 2;
-//			calOpPanel.add(nMonBut,calOpGC);
-//			calOpGC.gridwidth = 1;
-//			calOpGC.gridx = 6;
-//			calOpGC.gridy = 2;
-//			calOpPanel.add(nYearBut,calOpGC);
-			//원본
-			
 			calOpPanel.setLayout(new GridBagLayout());
 			GridBagConstraints calOpGC = new GridBagConstraints();
 			calOpGC.gridx = 1;
@@ -252,24 +218,6 @@ public class SmartBudget extends CalendarDataManager{ // CalendarDataManager의 G
 		budgetPanel.setLayout(new BorderLayout());
 		budgetPanel.add(calOpPanel, BorderLayout.NORTH);
 		budgetPanel.add(budgetOpPanel, BorderLayout.CENTER);
-		
-//		todayPanel = new JPanel();
-//			todayPanel.setLayout(new GridBagLayout());
-//			GridBagConstraints todayGC = new GridBagConstraints();
-//			todayGC.gridx = 1;
-//			todayGC.gridy = 2;
-//			todayGC.gridwidth = 2;
-//			todayGC.gridheight = 1;
-//			todayGC.weightx = 1;
-//			todayGC.weighty = 1;
-//			todayGC.insets = new Insets(0,5,50,0);
-//			todayGC.anchor = GridBagConstraints.WEST;
-//			todayGC.fill = GridBagConstraints.NONE;
-//			todayPanel.add(todayBut,todayGC);
-//			todayGC.gridwidth = 3;
-//			todayGC.gridx = 2;
-//			todayGC.gridy = 2;
-//			todayPanel.add(todayLab,calOpGC);
 		
 		calPanel=new JPanel();
 			weekDaysName = new JButton[7];
@@ -368,6 +316,8 @@ public class SmartBudget extends CalendarDataManager{ // CalendarDataManager의 G
 			memoSubPanel.add(clearBut);
 			memoPanel.setLayout(new BorderLayout());
 			listPanel = new ListPanel();
+			listPanel.btnNewButton.addActionListener(btnAListener);
+			listPanel.btnNewButton_1.addActionListener(btnAListener);
 			memoPanel.add(listPanel);
 			//memoPanel.add(selectedDate, BorderLayout.NORTH);
 			//memoPanel.add(memoAreaSP,BorderLayout.CENTER);
@@ -551,5 +501,59 @@ public class SmartBudget extends CalendarDataManager{ // CalendarDataManager의 G
 				}
 			}
 		}
+	}
+	
+	public class ButtonActionListener implements ActionListener {
+
+		public void actionPerformed(ActionEvent e) {
+			String s;
+			
+			s = ((JButton) e.getSource()).getText();
+			
+			if (s.equals("추가")) {
+				addDialog = new AddDialog();
+				addDialog.setLocation(600, 320);
+				addDialog.rdbtnNewRadioButton.addItemListener(new ButtonItemListener());
+				addDialog.rdbtnNewRadioButton_1.addItemListener(new ButtonItemListener());
+				addDialog.setVisible(true);
+				
+				for (int i = 0; i < addDialog.rdbtn1.length; i++)
+					addDialog.rdbtn1[i].setVisible(false);
+
+				for (int i = 0; i < addDialog.rdbtn2.length; i++)
+					addDialog.rdbtn2[i].setVisible(false);
+			}
+			else if (s.equals("삭제")) {
+				deleteDialog = new DeleteDialog();
+				deleteDialog.setLocation(700, 350);
+				deleteDialog.setVisible(true);
+			}
+		}
+		
+	}
+	
+	public class ButtonItemListener implements ItemListener {
+
+		public void itemStateChanged(ItemEvent e) {
+			String s;
+			
+			s = ((JRadioButton) e.getSource()).getText();
+			
+			if (s.equals("수입")) {
+				for (int i = 0; i < addDialog.rdbtn2.length; i++)
+					addDialog.rdbtn2[i].setVisible(false);
+				
+				for (int i = 0; i < addDialog.rdbtn1.length; i++) 
+					addDialog.rdbtn1[i].setVisible(true);
+			}
+			else if (s.equals("지출")) {
+				for (int i = 0; i < addDialog.rdbtn1.length; i++) 
+					addDialog.rdbtn1[i].setVisible(false);
+				
+				for (int i = 0; i < addDialog.rdbtn2.length; i++)
+					addDialog.rdbtn2[i].setVisible(true);
+			}
+		}
+		
 	}
 }
