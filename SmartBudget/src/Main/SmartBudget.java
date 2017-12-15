@@ -872,8 +872,8 @@ public class SmartBudget extends CalendarDataManager { // CalendarDataManager¿« 
 					addDialog = new AddDialog();
 					addDialog.okButton.addActionListener(btnAListener);
 					addDialog.cancelButton.addActionListener(btnAListener);
-					//addDialog.setLocation(600, 320);
-					addDialog.setLocation(2000, 400);
+					addDialog.setLocation(600, 320);
+//					addDialog.setLocation(2000, 400);
 					addDialog.rdbtnNewRadioButton.addItemListener(new ButtonItemListener());
 					addDialog.rdbtnNewRadioButton_1.addItemListener(new ButtonItemListener());
 					addDialog.setVisible(true);
